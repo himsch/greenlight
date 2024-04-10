@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"greenlight/internal/data"
 	"greenlight/internal/validator"
 	"net/http"
@@ -52,19 +51,12 @@ func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	go func() {
-		// recover()를 사용하여 패닉을 포착하고 애플리케이션을 종료하는 대신 오류 메시지를 기록하는 지연된 함수를 실행하십시오.
-		defer func() {
-			if err := recover(); err != nil {
-				app.logger.PrintError(fmt.Errorf("%s", err), nil)
-			}
-		}()
-
+	app.background(func() {
 		err = app.mailer.Send(user.Email, "user_welcome.tmpl", user)
 		if err != nil {
 			app.logger.PrintError(err, nil)
 		}
-	}()
+	})
 
 	err = app.writeJSON(w, http.StatusAccepted, envelope{"user": user}, nil)
 	if err != nil {

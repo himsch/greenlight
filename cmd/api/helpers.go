@@ -127,3 +127,19 @@ func (app *application) readInt(qs url.Values, key string, defaultValue int, v *
 
 	return i
 }
+
+// background() 도우미는 임의의 함수를 매개변수로 받아들입니다.
+func (app *application) background(fn func()) {
+	// 백그라운드 고루틴을 실행합니다.
+	go func() {
+		// 패닉을 회복하십시오.
+		defer func() {
+			if err := recover(); err != nil {
+				app.logger.PrintError(fmt.Errorf("%s", err), nil)
+			}
+		}()
+
+		// 매개변수로 전달한 임의의 함수를 실행합니다.
+		fn()
+	}()
+}
