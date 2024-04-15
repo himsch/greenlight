@@ -5,8 +5,9 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"greenlight/internal/validator"
 	"time"
+
+	"greenlight/internal/validator"
 
 	"github.com/lib/pq"
 )

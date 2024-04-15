@@ -1,9 +1,10 @@
 package data
 
 import (
-	"greenlight/internal/validator"
 	"math"
 	"strings"
+
+	"greenlight/internal/validator"
 )
 
 type Filters struct {

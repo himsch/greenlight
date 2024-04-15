@@ -2,10 +2,11 @@ package main
 
 import (
 	"errors"
-	"greenlight/internal/data"
-	"greenlight/internal/validator"
 	"net/http"
 	"time"
+
+	"greenlight/internal/data"
+	"greenlight/internal/validator"
 )
 
 func (app *application) registerUserHandler(w http.ResponseWriter, r *http.Request) {

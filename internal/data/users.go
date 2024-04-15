@@ -5,8 +5,9 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"errors"
-	"greenlight/internal/validator"
 	"time"
+
+	"greenlight/internal/validator"
 
 	"golang.org/x/crypto/bcrypt"
 )

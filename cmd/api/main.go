@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"flag"
-	"greenlight/internal/data"
-	"greenlight/internal/jsonlog"
-	"greenlight/internal/mailer"
 	"os"
 	"sync"
 	"time"
+
+	"greenlight/internal/data"
+	"greenlight/internal/jsonlog"
+	"greenlight/internal/mailer"
 
 	_ "github.com/lib/pq"
 )
