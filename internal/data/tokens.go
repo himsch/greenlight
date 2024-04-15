@@ -6,19 +6,21 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/base32"
-	"time"
-
 	"greenlight/internal/validator"
+	"time"
 )
 
-const ScopeActivation = "activation"
+const (
+	ScopeActivation     = "activation"
+	ScopeAuthentication = "authentication"
+)
 
 type Token struct {
-	Plaintext string
-	Hash      []byte
-	UserID    int64
-	Expiry    time.Time
-	Scope     string
+	Plaintext string    `json:"token"`
+	Hash      []byte    `json:"-"`
+	UserID    int64     `json:"-"`
+	Expiry    time.Time `json:"expiry"`
+	Scope     string    `json:"-"`
 }
 
 func generateToken(userID int64, ttl time.Duration, scope string) (*Token, error) {
