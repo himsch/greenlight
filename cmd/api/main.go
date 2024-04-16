@@ -4,13 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"flag"
-	"os"
-	"sync"
-	"time"
-
 	"greenlight/internal/data"
 	"greenlight/internal/jsonlog"
 	"greenlight/internal/mailer"
+	"os"
+	"strings"
+	"sync"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -37,6 +37,9 @@ type config struct {
 		username string
 		password string
 		sender   string
+	}
+	cors struct {
+		trustedOrigins []string
 	}
 }
 
@@ -67,6 +70,15 @@ func main() {
 	flag.StringVar(&cfg.smtp.username, "smtp-username", "e4174595fffe1f", "SMTP username")
 	flag.StringVar(&cfg.smtp.password, "smtp-password", "048ef11c9e8399", "SMTP password")
 	flag.StringVar(&cfg.smtp.sender, "smtp-sender", "Greenlight <no-reply@greenlight.com>", "SMTP sender")
+
+	// -cors-trusted-origins 명령줄 플래그를 처리하려면 flag.Func() 함수를 사용하세요.
+	// 여기서는 strings.Fields() 함수를 사용하여 플래그 값을 공백 문자를 기반으로 한 조각으로 분할하고 이를 구성 구조체에 할당합니다.
+	// 중요한 것은 -cors-trusted-origins 플래그가 없거나, 빈 문자열을 포함하거나,
+	// 공백만 포함하는 경우 strings.Fields()는 빈 []string 슬라이스를 반환합니다.
+	flag.Func("cors-trusted-origins", "Trusted CORS origins (space separated)", func(val string) error {
+		cfg.cors.trustedOrigins = strings.Fields(val)
+		return nil
+	})
 
 	flag.Parse()
 
