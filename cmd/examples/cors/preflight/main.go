@@ -17,7 +17,7 @@ const html = `
     <div id="output"></div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        fetch("http://localhost:4000/v1/authentications", {
+        fetch("http://localhost:4000/v1/tokens/authentication", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
