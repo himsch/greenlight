@@ -3,6 +3,7 @@ module greenlight
 go 1.21.5
 
 require (
+	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-mail/mail/v2 v2.3.0 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
