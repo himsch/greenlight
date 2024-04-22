@@ -9,6 +9,7 @@ import (
 	"greenlight/internal/data"
 	"greenlight/internal/jsonlog"
 	"greenlight/internal/mailer"
+	"greenlight/internal/vcs"
 	"os"
 	"runtime"
 	"strings"
@@ -18,7 +19,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const version = "1.0.0"
+var version = vcs.Version()
 
 type config struct {
 	port int
